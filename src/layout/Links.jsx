@@ -13,6 +13,9 @@ const Links = () => {
             <li className="nav-item">
                 <NavLink className='nav-link' to='/'>Forum</NavLink>
             </li>
+            <li className="nav-item">
+                <NavLink className='nav-link' to='/'>Cart</NavLink>
+            </li>
         </ul>
     )
 }
