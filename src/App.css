@@ -76,14 +76,29 @@ input[type='text'],input[type='password'] {
   border-radius: 3px;
 }
 
-.login-wallpaper{
+/* .login-wallpaper{
   background:linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ),url('https://images.unsplash.com/photo-1514329926535-7f6dbfbfb114?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');
-}
+} */
 
-.home-wallpaper{
+/* .home-wallpaper{
   background:white;
-}
+} */
 
 .nav-link:hover{
   color:#c3c3ba !important;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #f5f5f5;
+}
+
+.style-add-comic{
+  background:white;
+  padding: 20px;
+    border-radius: 5px;
 }

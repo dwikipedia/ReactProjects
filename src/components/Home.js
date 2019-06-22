@@ -1,17 +1,25 @@
 import React, { Component } from 'react'
-import Header from '../layout/Header'
+import ComicList from './comics/ComicList'
+import {connect} from 'react-redux'
 
 class Home extends Component {
     render() {
+        //console.log(this.props)
+        const {comics} = this.props
         return (
             <div>
-                <Header />
                 <div className="container">
-                    <h1>This is your home page!</h1>
+                    <ComicList comics={comics} />
                 </div>
             </div>
         )
     }
 }
 
-export default Home
+const mapStateToProps = (state)=>{
+    return{
+        comics: state.comic.comics
+    }
+}
+
+export default connect(mapStateToProps)(Home)

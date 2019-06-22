@@ -19,7 +19,7 @@ class Header extends Component {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
                         <Links />
-                        <button className="btn btn-md btn-danger" onClick={this.logout}>Logout</button>
+                        {/* <button className="btn btn-md btn-danger" onClick={this.logout}>Logout</button> */}
                     </div>
                 </div>
             </nav>

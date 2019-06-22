@@ -4,7 +4,11 @@ import fire from './config/Fire'
 
 import Login from './components/Login'
 import Home from './components/Home'
-import { BrowserRouter } from 'react-router-dom'
+import AddComic from './components/comics/AddComic'
+import Header from './layout/Header'
+import Footer from './layout/Footer'
+
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 
 class App extends Component {
@@ -37,7 +41,15 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
-          {this.state.user ? (<Home />) : (<Login />)}
+          <Header/>
+          <Switch>
+            <Route exact path = '/' component = {Home}/>
+            <Route path = '/login' component = {Login}/>
+            <Route path = '/AddComic' component = {AddComic}/>
+          </Switch>
+          <Footer/>
+          {/* {this.state.user ? (<Home />) : (<Login />)} */}
+
         </div>
       </BrowserRouter>
     )
