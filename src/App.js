@@ -5,6 +5,7 @@ import fire from './config/Fire'
 import Login from './components/Login'
 import Home from './components/Home'
 import AddComic from './components/comics/AddComic'
+import ComicDetail from './components/comics/ComicDetail'
 import Header from './layout/Header'
 import Footer from './layout/Footer'
 
@@ -46,6 +47,7 @@ class App extends Component {
             <Route exact path = '/' component = {Home}/>
             <Route path = '/login' component = {Login}/>
             <Route path = '/AddComic' component = {AddComic}/>
+            <Route path = '/comic/:id' component = {ComicDetail}/>
           </Switch>
           <Footer/>
           {/* {this.state.user ? (<Home />) : (<Login />)} */}

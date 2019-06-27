@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { addComic } from '../../store/actions/comicActions'
+import {Redirect} from 'react-router-dom'
 
 class AddComic extends Component {
     state = {
@@ -13,9 +16,11 @@ class AddComic extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault()
-
+        this.props.addComic(this.state)
     }
     render() {
+        const {auth} = this.props
+        if(!auth.uid) return <Redirect to="/login"/>
         return (
             <div className="container">
                 <div className="style-add-comic">
@@ -37,7 +42,7 @@ class AddComic extends Component {
                         <div className="form-group">
                             <label htmlFor="descriptiton" className="control-label col-sm-2">Description</label>
                             <div className="col-sm-7">
-                                <textarea class="form-control" rows="5" id="description" placeholder="Add description about this comic" onChange={this.handleChange}></textarea>
+                                <textarea className="form-control" rows="5" id="description" placeholder="Add description about this comic" onChange={this.handleChange}></textarea>
                             </div>
                         </div>
                         <div className="form-group">
@@ -52,4 +57,15 @@ class AddComic extends Component {
     }
 }
 
-export default AddComic
+const mapStateToProps = (state)=>{
+    return{
+        auth: state.firebase.auth
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addComic: (comic) => dispatch(addComic(comic))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddComic)

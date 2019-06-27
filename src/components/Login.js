@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import fire from '../config/Fire'
+
+import { connect } from 'react-redux'
+import { logIn } from '../store/actions/authAction'
+import { signUp} from '../store/actions/authAction'
+import { Redirect } from 'react-router-dom'
 
 class Login extends Component {
     constructor(props) {
@@ -19,18 +23,12 @@ class Login extends Component {
 
     login = e => {
         e.preventDefault() //prevent reload
-        fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-            .catch((error) => {
-                this.setState({ fireErrors: error.message })
-            })
+        this.props.logIn(this.state)
     }
 
     signup = e => {
         e.preventDefault() //prevent reload
-        fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .catch((error) => {
-                this.setState({ fireErrors: error.message })
-            })
+        this.props.signUp(this.state)
     }
 
     getAction = a => {
@@ -51,8 +49,8 @@ class Login extends Component {
     }
 
     render() {
-        let errorNotification = this.state.fireErrors ?
-            (<div className="Error">{this.state.fireErrors}</div>) : null
+        const { authError, auth } = this.props
+        if (auth.uid) return <Redirect to="/" />
 
         let submitBtn = this.state.loginBtn ?
             (<input className="loginBtn" type="submit" onClick={this.login} value="Login" />) :
@@ -69,8 +67,8 @@ class Login extends Component {
                         {this.state.formTitle}
                     </div>
                     <div className="body">
-                        {errorNotification}
-                        <form>
+                        {authError ? <div className="Error">{authError}</div> : null}
+                        <form onSubmit={this.handleSubmit}>
                             <input type="text"
                                 value={this.state.email}
                                 onChange={this.handleChange}
@@ -92,4 +90,18 @@ class Login extends Component {
     }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {
+        authError: state.auth.authError,
+        auth: state.firebase.auth
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logIn: (creds) => dispatch(logIn(creds)),
+        signUp: (newUser) => dispatch(signUp(newUser))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

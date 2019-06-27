@@ -88,6 +88,10 @@ input[type='text'],input[type='password'] {
   color:#c3c3ba !important;
 }
 
+a:hover{
+  cursor:pointer;
+}
+
 .footer {
   position: fixed;
   left: 0;
@@ -101,4 +105,14 @@ input[type='text'],input[type='password'] {
   background:white;
   padding: 20px;
     border-radius: 5px;
+}
+
+.link{
+  color:black
+}
+.link:hover{
+  text-decoration: none;
+  color: gray;
+  font-weight: bold;
+  transition: 0.1s;
 }

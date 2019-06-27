@@ -1,31 +1,38 @@
-import React, { Component } from 'react'
-import fire from '../config/Fire'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
-import Links from './Links'
+import { connect } from 'react-redux'
+import LoggedInLinks from './LoggedInLinks'
+import LoggedOutLinks from './LoggedOutLinks'
 
-class Header extends Component {
-    logout = () => {
-        fire.auth().signOut()
-    }
-    render() {
-        return (
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div className="container">
+const Header = (props) => {
+    const { auth } = props
+    //console.log(auth)
+
+    const links = auth.uid ? <LoggedInLinks /> : <LoggedOutLinks />
+    return (
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div className="container">
+                <div className="navbar-header">
                     <Link to='/' className="navbar-brand">ComicWeb</Link>
-
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
-                        <Links />
-                        {/* <button className="btn btn-md btn-danger" onClick={this.logout}>Logout</button> */}
-                    </div>
                 </div>
-            </nav>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
 
-        )
+                <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    { links }
+                </div>
+            </div>
+        </nav>
+    )
+}
+
+const mapStateToProps = (state) => {
+
+    return {
+        auth: state.firebase.auth
     }
 }
 
-export default Header
+export default connect(mapStateToProps)(Header)
